@@ -1,8 +1,4 @@
-#       - export BUCKET=codepipeline-ap-northeast-1-679695920619
-#       - sam package --template-file template.yaml --s3-bucket $BUCKET --output-template-file packaged-template.yaml
-# artifacts:
-#   files:
-#     - packaged-template.yaml
+#pac codepipeline src build yaml
 version: 0.2
 env:
   shell: bash
@@ -17,7 +13,7 @@ phases:
        - yum install unzip -y
        - pwd
        - ls -asl
-       - docker login -u cainz2022pac -p cainz2022pac
+       - docker login -u cainz2022pac2 -p cainz2022pac2
        - docker ps
        - chmod 666 /var/run/docker.sock
        - mkdir pac
