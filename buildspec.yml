@@ -1,0 +1,45 @@
+#       - export BUCKET=codepipeline-ap-northeast-1-679695920619
+#       - sam package --template-file template.yaml --s3-bucket $BUCKET --output-template-file packaged-template.yaml
+# artifacts:
+#   files:
+#     - packaged-template.yaml
+version: 0.2
+env:
+  shell: bash
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+       - echo Logging in to Amazon ECR...
+       - whoami
+       - yum install unzip -y
+       - pwd
+       - ls -asl
+       - docker login -u cainz2022pac -p cainz2022pac
+       - docker ps
+       - chmod 666 /var/run/docker.sock
+       - mkdir pac
+       - chmod 777 pac
+       - chmod 777 *
+       - df -H
+  build:
+    commands:
+       - docker build --no-cache --tag spring-native-aws-lambda:0.0.1-SNAPSHOT --file Dockerfile .
+       - ls -asl pac/
+       - docker run --name spring-native-aws-lambda spring-native-aws-lambda:0.0.1-SNAPSHOT
+       - docker cp spring-native-aws-lambda:app/target/spring-native-aws-lambda-0.0.1-SNAPSHOT-native-zip.zip ./pac/
+       - ls -asl pac/
+       - pwd
+       - cd pac/
+       - unzip spring-native-aws-lambda-0.0.1-SNAPSHOT-native-zip.zip
+       - ls -asl
+       - rm -rf spring-native-aws-lambda-0.0.1-SNAPSHOT-native-zip.zip
+       - cd ..
+       - aws cloudformation package --template-file template.yaml --output-template-file packaged-template.yaml --s3-bucket common-use-for-andre-and-all
+artifacts:
+  files:
+    - template.yaml
+    - packaged-template.yaml
+  discard-paths: yes
