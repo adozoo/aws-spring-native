@@ -25,18 +25,20 @@ public class ExampleFunction implements Function<Request, Response> {
   private static Table table = null;
   @Override
   public Response apply(final Request request) {
-    log.info("Converting request into a response...");
-    log.info(request.getName().toString());
+    log.info("Converting request into a response...1");
 
     amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).withRegion(Regions.AP_NORTHEAST_1).build();
+    log.info("Converting request into a response...2");
     table = new DynamoDB(amazonDynamoDBClient).getTable(DynamoConstants.TABLE_NAME);
-
+    log.info("Converting request into a response...3");
     Item item = table.getItem(DynamoConstants.PARTITION_KEY, "88881P111R111",
             DynamoConstants.SORT_KEY, "1");
+    log.info("Converting request into a response...4");
     String base_point = item.get("po").toString();
+    log.info("Converting request into a response...5");
     log.info("base_point: "+base_point);
-    log.info("getStrLi: "+String.valueOf(request.getStrLi().length));
-    log.info("getJanList: "+String.valueOf(request.getJanList().size()));
+    log.info(request.getName().toString());
+    log.info("getJanList: "+String.valueOf(request.getJanList().length));
     List<String> stringList = new ArrayList<>();
 
     stringList.add("A234567890ABC");

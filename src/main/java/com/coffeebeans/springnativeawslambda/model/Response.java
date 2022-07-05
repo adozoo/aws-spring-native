@@ -27,5 +27,5 @@ public class Response implements Serializable {
 
   @NotNull
   @JsonProperty(access = Access.READ_ONLY)
-  private List<String> janList;
+  private String[] janList;
 }
