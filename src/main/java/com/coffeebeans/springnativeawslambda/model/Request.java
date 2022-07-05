@@ -18,6 +18,6 @@ public class Request implements Serializable {
   private String name;
 
   @NotBlank
-  private String[] janList;
+  private String pro;
 
 }

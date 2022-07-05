@@ -1,6 +1,8 @@
 package com.coffeebeans.springnativeawslambda.functions;
 
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
@@ -9,7 +11,13 @@ import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.coffeebeans.springnativeawslambda.model.Request;
 import com.coffeebeans.springnativeawslambda.model.Response;
-
+import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -20,6 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ExampleFunction implements Function<Request, Response> {
+  private static final AWSCredentialsProvider credentialsProvider =
+          new AWSStaticCredentialsProvider(
+          new BasicAWSCredentials("AKIAXZ7J7TQOPSGXNTU3", "HyB7vwuILuobaS5NzBI+CpZGqw6z86+E366JpsDG"));
   private static AmazonDynamoDB amazonDynamoDBClient = null;
 
   private static Table table = null;
@@ -27,7 +38,10 @@ public class ExampleFunction implements Function<Request, Response> {
   public Response apply(final Request request) {
     log.info("Converting request into a response...1");
 
-    amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard().withCredentials(new DefaultAWSCredentialsProviderChain()).withRegion(Regions.AP_NORTHEAST_1).build();
+    amazonDynamoDBClient = AmazonDynamoDBClientBuilder.standard()
+            .withCredentials(credentialsProvider)
+            .withRegion(Regions.AP_NORTHEAST_1)
+            .build();
     log.info("Converting request into a response...2");
     table = new DynamoDB(amazonDynamoDBClient).getTable(DynamoConstants.TABLE_NAME);
     log.info("Converting request into a response...3");
@@ -38,7 +52,6 @@ public class ExampleFunction implements Function<Request, Response> {
     log.info("Converting request into a response...5");
     log.info("base_point: "+base_point);
     log.info(request.getName().toString());
-    log.info("getJanList: "+String.valueOf(request.getJanList().length));
     List<String> stringList = new ArrayList<>();
 
     stringList.add("A234567890ABC");
@@ -49,8 +62,8 @@ public class ExampleFunction implements Function<Request, Response> {
 
     final Response response = Response.builder()
         .rank(base_point)
-        .saved(true)
-        .janList(request.getJanList())
+        .saved(request.getPro())
+        .janList(stringList)
         .build();
 
     log.info("Converted request into a response.");
