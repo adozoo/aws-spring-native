@@ -102,5 +102,17 @@ This project uses experimental dependencies from Spring.
   </activeProfiles>
 </settings>
 ```
-
+```json
+{
+  "rank": "zhou",
+  "janList": [
+    "A234567890ABC",
+    "B234567890ABC",
+    "C234567890ABC",
+    "D234567890ABC",
+    "E234567890ABC"
+  ]
+}
+```
 ## aws codeplipeline
+

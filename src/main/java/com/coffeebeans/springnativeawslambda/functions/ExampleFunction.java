@@ -18,27 +18,26 @@ public class ExampleFunction implements Function<Request, Response> {
   @Override
   public Response apply(final Request request) {
     log.info("Converting request into a response...");
-    Item item = DynamoManager.getTable().getItem(DynamoConstants.PARTITION_KEY, "88881P111R111",
-            DynamoConstants.SORT_KEY, "1");
-
-    String base_point = item.get("po").toString();
-    String base_pd = item.get("pd").toString();
-    String base_janCode = item.get("jan").toString();
-    String campaign_point = item.get("h").toString();
-
-    StringBuilder str=new StringBuilder();
-
-    str.append("{ \"janCode\": \"");
-    str.append(base_janCode);
-    str.append("\", \"point \": \"");
-    str.append(base_point);
-    str.append("\", \"campaignPre \": \"");
-    str.append(base_pd);
-    str.append("\", \"campaignCode \": \"");
-    str.append(campaign_point);
-    str.append("\" }");
-
-    String requestItems = str.toString();
+//    Item item = DynamoManager.getTable().getItem(DynamoConstants.PARTITION_KEY, "88881P111R111",
+//            DynamoConstants.SORT_KEY, "1");
+//
+//    String base_point = item.get("po").toString();
+//    String base_pd = item.get("pd").toString();
+//    String base_janCode = item.get("jan").toString();
+//    String campaign_point = item.get("h").toString();
+//
+//    StringBuilder str=new StringBuilder();
+//
+//    str.append("-");
+//    str.append(base_janCode);
+//    str.append("-");
+//    str.append(base_point);
+//    str.append("-");
+//    str.append(base_pd);
+//    str.append("-");
+//    str.append(campaign_point);
+//
+//    String requestItems = str.toString();
 
     List<String> stringList = new ArrayList<>();
 
@@ -49,9 +48,9 @@ public class ExampleFunction implements Function<Request, Response> {
     stringList.add("E234567890ABC");
 
     final Response response = Response.builder()
-        .rank(requestItems)
+        .rank(request.getName())
         .saved(true)
-        .janList(stringList)
+        .janList(request.getJanList())
         .build();
 
     log.info("Converted request into a response.");
