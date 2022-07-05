@@ -19,4 +19,7 @@ public class Request implements Serializable {
 
   @NotBlank
   private List<String> janList;
+
+  @NotBlank
+  private String[] strLi;
 }
