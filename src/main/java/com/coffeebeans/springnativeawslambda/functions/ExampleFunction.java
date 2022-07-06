@@ -30,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ExampleFunction implements Function<Request, Response> {
   private static final AWSCredentialsProvider credentialsProvider =
           new AWSStaticCredentialsProvider(
-          new BasicAWSCredentials("AKIAXZ7J7TQOPSGXNTU3", "HyB7vwuILuobaS5NzBI+CpZGqw6z86+E366JpsDG"));
+          new BasicAWSCredentials("xxx", "xxx"));
   private static AmazonDynamoDB amazonDynamoDBClient = null;
 
   private static Table table = null;
