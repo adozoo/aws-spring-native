@@ -26,7 +26,7 @@
     <native.build.args>
       --enable-url-protocols=http
       -H:+AddAllCharsets
-      -H:IncludeResources="logback.xml|application.yml|com/amazonaws/partitions/endpoints.json"
+      -H:IncludeResources="com/amazonaws/partitions/endpoints.json"
     </native.build.args>
   </properties>
 
