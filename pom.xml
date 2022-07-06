@@ -26,6 +26,7 @@
     <native.build.args>
       --enable-url-protocols=http
       -H:+AddAllCharsets
+      -H:IncludeResources="logback.xml|application.yml|com/amazonaws/partitions/endpoints.json"
     </native.build.args>
   </properties>
 
@@ -87,6 +88,22 @@
       <artifactId>aws-java-sdk-dynamodb</artifactId>
       <version>1.12.239</version>
     </dependency>
+    <!-- Jackson依赖 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>2.9.9</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.9</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>2.9.9</version>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
@@ -113,14 +130,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-<!--          <image>-->
-<!--            <builder>paketobuildpacks/builder:tiny</builder>-->
-<!--            &lt;!&ndash;            <runImage>amazon/aws-lambda-java:11</runImage>&ndash;&gt;-->
-<!--            <name>${project.artifactId}:${project.version}</name>-->
-<!--            <env>-->
-<!--              <BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>-->
-<!--            </env>-->
-<!--          </image>-->
           <classifier>exec</classifier>
         </configuration>
       </plugin>
