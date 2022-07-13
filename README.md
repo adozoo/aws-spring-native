@@ -104,7 +104,7 @@ This project uses experimental dependencies from Spring.
 ```
 ```json
 {
-  "rank": "zhou",
+  "rank": "andre",
   "janList": [
     "A234567890ABC",
     "B234567890ABC",
